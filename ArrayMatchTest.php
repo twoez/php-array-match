@@ -48,7 +48,6 @@ class ArrayMatchTest extends TestCase
             $i++;
         }
 
-
         $this->assertEquals($expectedArray, $array);
     }
 
