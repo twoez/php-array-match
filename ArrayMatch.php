@@ -76,7 +76,7 @@ abstract class ArrayMatch
                     self::_match($parts, $value, $matches, $track, $level + 1);
                 }
             } elseif (!$nextPart && ($key === $currentPart || $currentPart === '*')) {
-                $matches[] = $track;
+                $matches[] = ['track' => $track, 'value' => $value];
             }
         }
 
