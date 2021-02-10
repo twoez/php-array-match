@@ -41,7 +41,7 @@ class ArrayMatchTest extends TestCase
 
             if ($matches && array_key_exists('replaceWith', $value)) {
                 foreach ($matches as $match) {
-                    ArrayMatch::replace($match, $value['replaceWith'], $array);
+                    ArrayMatch::replace($match['track'], $value['replaceWith'], $array);
                 }
             }
 

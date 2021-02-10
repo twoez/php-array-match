@@ -27,5 +27,6 @@ if ($hasMatch) {
     foreach ($matches as $match) {
         var_dump($match['track']);
         var_dump($match['value']);
+        ArrayMatch::replace($match['track'], 'my new value', $array);
     }
 }
