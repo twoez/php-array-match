@@ -2,7 +2,6 @@
 
 namespace App\Tests\Unit\Core;
 
-use App\Core\ArrayMatch;
 use DateTime;
 use Exception;
 use PHPUnit\Framework\TestCase;
@@ -64,7 +63,7 @@ class ArrayMatchTest extends TestCase
                 'foo.bar' => ['replaceWith' => 'shouldn\'t be replaced', 'shouldMatch' => false],
             ],
             'array' => [
-                [false => [['date' => new DateTime('now')]]],
+                [false => [['date' => new DateTime('2021-01-01 13:00:00')]]],
                 [['date' => '2']],
                 [['date' => '3']],
                 ['bla' => [
@@ -89,7 +88,7 @@ class ArrayMatchTest extends TestCase
                         'foo' => [
                             0 => 'value 1',
                             1 => 2,
-                            2 => new DateTime('now')
+                            2 => new DateTime('2021-01-01 13:00:00')
                         ],
                     ]
                 ],
@@ -106,17 +105,42 @@ class ArrayMatchTest extends TestCase
         return [
             'matches' => [
                 [
-                    [3, 'bla', 'foo'],
-                    [4, 0, 'foo']
+                    [
+                        'track' => [3, 'bla', 'foo'],
+                        'value' => 'string',
+                    ],
+                    [
+                        'track' => [4, 0, 'foo'],
+                        'value' => [
+                            0 => 'value 1',
+                            1 => 2,
+                            2 => new DateTime('2021-01-01 13:00:00')
+                        ]
+                    ]
                 ],
                 [
-                    ['test', 'hello', 0, 0, 'world'],
-                    ['test', 'hello', 1, 'world']
+                    [
+                        'track' => ['test', 'hello', 0, 0, 'world'],
+                        'value' => null
+                    ],
+                    [
+                        'track' => ['test', 'hello', 1, 'world'],
+                        'value' => 'foo.bar'
+                    ]
                 ],
                 [
-                    [0, 0, 0, 'date'],
-                    [1, 0, 'date'],
-                    [2, 0, 'date']
+                    [
+                        'track' => [0, 0, 0, 'date'],
+                        'value' => new DateTime('2021-01-01 13:00:00')
+                    ],
+                    [
+                        'track' => [1, 0, 'date'],
+                        'value' => '2'
+                    ],
+                    [
+                        'track' => [2, 0, 'date'],
+                        'value' => '3'
+                    ],
                 ],
                 null
             ],
