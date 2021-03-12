@@ -9,11 +9,11 @@ class ArrayMatch
      * @param string $pattern
      * @param array $array
      * @param array|null $matches
-     * @return mixed|null
+     * @return bool
      */
     public static function match(string $pattern, array $array, array &$matches = null)
     {
-        $matches = null;
+        $matches = [];
         $parts = explode('.', $pattern);
 
         self::_match($parts, $array, $matches);
