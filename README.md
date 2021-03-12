@@ -3,7 +3,7 @@
 Search a recursive array with string patterns e.g. `*.hello.*.world` (also supports wildcard).
 
 Example:
-```
+```php
 $array = [
     'foo' => [
         'bar' => 'value'

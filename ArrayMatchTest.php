@@ -1,14 +1,9 @@
 <?php
 
-namespace App\Tests\Unit\Core;
-
-use DateTime;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ArrayMatchTest
- * @package App\Tests\Unit\Core
  */
 class ArrayMatchTest extends TestCase
 {
@@ -61,6 +56,7 @@ class ArrayMatchTest extends TestCase
                 '*.hello.*.world' => ['replaceWith' => 'replaced hello world', 'shouldMatch' => true],
                 '*.date' => ['replaceWith' => 'replaced date', 'shouldMatch' => true],
                 'foo.bar' => ['replaceWith' => 'shouldn\'t be replaced', 'shouldMatch' => false],
+                'blocks.*.page_link' => ['replaceWith' => 'replaced blocks', 'shouldMatch' => true],
             ],
             'array' => [
                 [false => [['date' => new DateTime('2021-01-01 13:00:00')]]],
@@ -92,7 +88,18 @@ class ArrayMatchTest extends TestCase
                         ],
                     ]
                 ],
-                'bar' => 456
+                'bar' => 456,
+                'blocks' => [
+                    [
+                        'page_link' => 1
+                    ],
+                    [
+                        'page_link' => 2
+                    ],
+                    [
+                        'page_link' => 3
+                    ]
+                ]
             ]
         ];
     }
@@ -142,7 +149,21 @@ class ArrayMatchTest extends TestCase
                         'value' => '3'
                     ],
                 ],
-                null
+                null,
+                [
+                    [
+                        'track' => ['blocks', 0, 'page_link'],
+                        'value' => 1
+                    ],
+                    [
+                        'track' => ['blocks', 1, 'page_link'],
+                        'value' => 2
+                    ],
+                    [
+                        'track' => ['blocks', 2, 'page_link'],
+                        'value' => 3
+                    ],
+                ]
             ],
             'array' => [
                 [false => [['date' => 'replaced date']]],
@@ -170,7 +191,18 @@ class ArrayMatchTest extends TestCase
                         'foo' => 'replaced foo'
                     ]
                 ],
-                'bar' => 456
+                'bar' => 456,
+                'blocks' => [
+                    [
+                        'page_link' => 'replaced blocks'
+                    ],
+                    [
+                        'page_link' => 'replaced blocks'
+                    ],
+                    [
+                        'page_link' => 'replaced blocks'
+                    ]
+                ]
             ]
         ];
     }
