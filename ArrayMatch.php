@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Core;
-
 /**
  * Class ArrayMatch
- * @package App\Core
  */
-abstract class ArrayMatch
+class ArrayMatch
 {
     /**
      * @param string $pattern
@@ -59,21 +56,23 @@ abstract class ArrayMatch
         $nextPart = next($parts);
 
         foreach ($data as $key => $value) {
+            $tempParts = $parts;
+
             $track = array_slice($track, 0, $level);
             $track[] = $key;
 
             if ($nextPart && is_array($value)) {
                 if ($currentPart === '*') {
                     if (array_key_exists($nextPart, $value)) {
-                        array_shift($parts);
+                        array_shift($tempParts);
                     } else {
-                        reset($parts);
+                        reset($tempParts);
                     }
 
-                    self::_match($parts, $value, $matches, $track, $level + 1);
+                    self::_match($tempParts, $value, $matches, $track, $level + 1);
                 } elseif ($currentPart === $key) {
-                    array_shift($parts);
-                    self::_match($parts, $value, $matches, $track, $level + 1);
+                    array_shift($tempParts);
+                    self::_match($tempParts, $value, $matches, $track, $level + 1);
                 }
             } elseif (!$nextPart && ($key === $currentPart || $currentPart === '*')) {
                 $matches[] = ['track' => $track, 'value' => $value];
